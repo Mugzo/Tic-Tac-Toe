@@ -2,8 +2,8 @@ import numpy as np
 
 
 class Game:
-    def __init__(self):
-        self.board = [0, 0, 0, 0, 0, 0, 0, 0, 0]
+    def __init__(self, positions):
+        self.board = positions
 
     def show_board(self):
         print_board = ""
@@ -29,7 +29,7 @@ class Game:
         else:
             self.board[position - 1] = player
 
-    def check_winner(self, player):
+    def is_winner(self):
         array = np.array(self.board).reshape(-1, 3)
         # Winning lines
         lines = []
@@ -45,36 +45,36 @@ class Game:
         # Verify if there is a winner
         for line in lines:
             if not np.any(line == 0) and np.sum(line) % 3 == 0:
-                print(f"Player {player} won the game!")
+                print(line)
                 self.show_board()
-                return False
+                return True
             # Verify if it's a draw
             elif 0 not in self.board:
                 self.show_board()
                 print("The game is a draw.")
-                return False
-        return True
+                return None
+        return False
 
 
-def play():
-    print("To choose your position please refer to this board, where the numbers are the position:")
-    print("1 2 3\n"
-          "4 5 6\n"
-          "7 8 9\n")
-    print("Player 1 starts.")
-
-    game_is_on = True
-    game = Game()
-
-    while game_is_on:
-        game.player(1)
-        if not game.check_winner(1):
-            game_is_on = False
-            break
-        game.player(2)
-        if not game.check_winner(2):
-            game_is_on = False
-            break
-
-
-play()
+# def play():
+#     print("To choose your position please refer to this board, where the numbers are the position:")
+#     print("1 2 3\n"
+#           "4 5 6\n"
+#           "7 8 9\n")
+#     print("Player 1 starts.")
+#
+#     game_is_on = True
+#     game = Game()
+#
+#     while game_is_on:
+#         game.player(1)
+#         if not game.check_winner(1):
+#             game_is_on = False
+#             break
+#         game.player(2)
+#         if not game.check_winner(2):
+#             game_is_on = False
+#             break
+#
+#
+# play()

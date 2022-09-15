@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Tic Tac Toe</title>
+
+    <!--Stylesheets-->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+
+    <!--Scripts-->
+    <script src="{{ url_for('static', filename='js/scripts.js') }}" defer></script>
+
+</head>
+<body>
+    <h1>Tic Tac Toe</h1>
+    <h2 id="game-result"></h2>
+    <div class="game">
+        <div class="board">
+            <div class="square top left" id="1">
+                <div class=""></div>
+            </div>
+            <div class="square top" id="2">
+                <div class=""></div>
+            </div>
+            <div class="square top right" id="3">
+                <div class=""></div>
+            </div>
+            <div class="square left" id="4">
+                <div class=""></div>
+            </div>
+            <div class="square" id="5">
+                <div class=""></div>
+            </div>
+            <div class="square right" id="6">
+                <div class=""></div>
+            </div>
+            <div class="square bottom left" id="7">
+                <div class=""></div>
+            </div>
+            <div class="square bottom" id="8">
+                <div class=""></div>
+            </div>
+            <div class="square bottom right" id="9">
+                <div class=""></div>
+            </div>
+        </div>
+
+        <button id="restart" class="hidden">Play Again</button>
+
+    </div>
+</body>
+</html>
