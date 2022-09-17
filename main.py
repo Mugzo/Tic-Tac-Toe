@@ -24,7 +24,7 @@ def game(positions):
     elif player == 0:
         return jsonify(None)
 
-    move = game.minimax(game.board, 4, True)[1]
+    move = game.minimax(game.board, 6, True)[1]
     index = game.get_index(move)
     ai = game.is_winner(move)
 

@@ -43,7 +43,7 @@ class Game:
                 else:
                     temp_position[pos] = 2
                 moves.append(temp_position)
-
+        random.shuffle(moves)
         return moves
 
     def minimax(self, position, depth, maximizing_player):
