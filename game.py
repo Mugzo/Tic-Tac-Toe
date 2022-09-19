@@ -48,33 +48,37 @@ class Game:
 
     def minimax(self, position, depth, maximizing_player):
         if depth == 0 or self.is_winner(position) is not False:
-            if self.is_winner(position) is False:
+            if self.is_winner(position) == 0 or self.is_winner(position) is False:
                 score = 0
             else:
                 score = self.is_winner(position)
             return score, position
 
         if maximizing_player:
-            maxEval = float("-inf")
+            maxScore = float("-inf")
             best_move = None
+
             for move in self.get_all_moves(position, "ai"):
                 evaluation = self.minimax(move, depth - 1, False)[0]
-                maxEval = max(maxEval, evaluation)
-                print(f"turn: ai, position: {move}, evaluation: {maxEval}")
-                if maxEval == evaluation:
+                maxScore = max(maxScore, evaluation)
+
+                if maxScore == evaluation:
                     best_move = move
-            return maxEval, best_move
+
+            return maxScore, best_move
 
         else:
-            minEval = float("inf")
+            minScore = float("inf")
             best_move = None
+
             for move in self.get_all_moves(position, "player"):
                 evaluation = self.minimax(move, depth - 1, True)[0]
-                minEval = min(minEval, evaluation)
-                print(f"turn: Player, position: {move}, evaluation: {minEval}")
-                if minEval == evaluation:
+                minScore = min(minScore, evaluation)
+
+                if minScore == evaluation:
                     best_move = move
-            return minEval, best_move
+
+            return minScore, best_move
 
     # Get the index of the AI move to pass it to the Javascript
     def get_index(self, new_position):

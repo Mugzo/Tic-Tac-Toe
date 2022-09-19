@@ -1,5 +1,7 @@
 from flask import Flask, render_template, jsonify
 from game import Game
+import time
+import random
 
 app = Flask(__name__)
 
@@ -14,6 +16,10 @@ def game(positions):
     board = [int(x) for x in positions.split(",")]
     game = Game(board)
 
+    # If AI is first to play, make a random move
+    if 1 not in board:
+        return jsonify(False, random.randint(0, 8), False)
+
     player = game.is_winner(board)
 
     # If the game is not ended continue, else pass the game state to Javascript (Win or draw)
@@ -24,9 +30,16 @@ def game(positions):
     elif player == 0:
         return jsonify(None)
 
-    move = game.minimax(game.board, 6, True)[1]
-    index = game.get_index(move)
-    ai = game.is_winner(move)
+    start_time = time.time()
+    move = game.minimax(game.board, 6, True)
+    end_time = time.time()
+
+    # Calculate the AI Evaluation time
+    print(f"Evaluation Time: {end_time - start_time:.2f}")
+
+    print(f"AI Move: {move[1]}, Evaluation: {move[0]}")
+    index = game.get_index(move[1])
+    ai = game.is_winner(move[1])
 
     # If the AI move doesn't result in the end of the game continue, else pass the game state to Javascript (Win or draw)
     if ai is False:
@@ -42,9 +55,3 @@ def game(positions):
 
 if __name__ == "__main__":
     app.run(debug=True)
-
-# To do
-# Add Alpha Beta Pruning to the Minimax algorithm
-# Add a database to track the AI stats
-# Make the AI take random moves from its best possibilities so the game looks a bit different each time.
-# Host the game online
